@@ -1,15 +1,21 @@
 name: Get and cache dependencies
 description: A reusable workflow to get and cache dependencies.
+inputs:
+  cache-key:
+    description: The key to use for caching dependencies.
+    required: false
+    default: 'true'
 runs:
   using: composite
   steps:
     - name: Cache dependencies
+      if: inputs.cache-key != 'true'
       id: cache
       uses: actions/cache@v5
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.cache-key != 'true'
       run: npm ci
       shell: bash
