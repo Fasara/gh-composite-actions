@@ -8,7 +8,7 @@ inputs:
 outputs:
   updated-cache:
     description: Whether the cache was hit or not.
-    value: ${{ steps.install-deps.outputs.updated-cache }}
+    value: ${{ steps.cache-status.outputs.updated-cache }}
 runs:
   using: composite
   steps:
@@ -19,10 +19,20 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Resolve cache status
+      id: cache-status
+      shell: bash
+      run: |
+        if [ "${{ inputs.cache-key }}" != "true" ]; then
+          echo "updated-cache=false" >> "$GITHUB_OUTPUT"
+        elif [ "${{ steps.cache.outputs.cache-hit }}" = "true" ]; then
+          echo "updated-cache=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "updated-cache=false" >> "$GITHUB_OUTPUT"
+        fi
     - name: Install dependencies
       id: install-deps
-      if: steps.cache.outputs.cache-hit != 'true' || inputs.cache-key != 'true'
+      if: steps.cache-status.outputs.updated-cache != 'true'
       run: |
         npm ci
-        echo "updated-cache=true" >> $GITHUB_OUTPUT
       shell: bash
