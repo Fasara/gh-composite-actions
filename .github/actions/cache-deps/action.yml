@@ -9,7 +9,7 @@ runs:
   using: composite
   steps:
     - name: Cache dependencies
-      if: inputs.cache-key != 'true'
+      if: inputs.cache-key == 'true'
       id: cache
       uses: actions/cache@v5
       with:
