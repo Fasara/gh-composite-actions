@@ -12,6 +12,9 @@ async function run() {
     // Upload files
     await exec.exec(`aws s3 sync ${distPath} ${s3Uri} --region ${region}`);
 
+    const websiteUrl = `http://${bucket}.s3-website-${region}.amazonaws.com`;
+    core.setOutput('website-url', websiteUrl);
+
 }
 
 run();
