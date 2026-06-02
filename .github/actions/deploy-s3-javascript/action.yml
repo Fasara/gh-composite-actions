@@ -1,0 +1,5 @@
+name: Deploy to AWS S3 bucket
+description: A reusable workflow to deploy a static website to an AWS S3 bucket.
+runs:
+  using: node20
+  main: index.js
