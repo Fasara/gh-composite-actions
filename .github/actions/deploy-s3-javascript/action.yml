@@ -1,5 +1,16 @@
 name: Deploy to AWS S3 bucket
 description: A reusable workflow to deploy a static website to an AWS S3 bucket.
+inputs:
+  bucket-name:
+    description: The name of the S3 bucket to deploy to.
+    required: true
+  region:
+    description: The AWS region where the S3 bucket is located.
+    required: false
+    default: 'eu-west-2'
+  dist-path:
+    description: The path to the directory containing the files to deploy.
+    required: true
 runs:
   using: node20
   main: index.js

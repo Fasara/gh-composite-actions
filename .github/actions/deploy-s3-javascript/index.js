@@ -1,12 +1,19 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
+import { exec } from '@actions/exec';
 
 async function run() {
-    try {
-    core.info('Deploying to AWS S3 bucket...');
-    } catch (error) {
-        core.setFailed(error instanceof Error ? error.message : String(error));
-    }
+    // Get inputs
+    const bucket =core.getInput('bucket-name', { required: true });
+    const region = core.getInput('region', { required: true });
+    const distPath = core.getInput('dist-path', { required: true });
+    const s3Uri = `s3://${bucket}`;
+
+    // Upload files
+    process.env.AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+    process.env.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+    await exec.exec(`aws s3 sync ${distPath} ${s3Uri} --region ${region}`);
+
 }
 
 run();
