@@ -1,6 +1,6 @@
 ## Different Types of Custom Actions
 
-### JavaScript Actions
+### 👩🏼‍🍳 JavaScript Actions
 
 The action runs directly on the runner (the VM that executes your workflow) using Node.js.
 GitHub provides a toolkit (@actions/core, @actions/github, etc.) to interact with inputs, outputs, and the workflow context. 
@@ -32,7 +32,7 @@ runs:
 Anything that needs to be fast and cross-platform — parsing inputs, calling APIs, posting PR comments, interacting with the GitHub API.
 
 
-### Docker Actions
+### 👩🏼‍🍳 Docker Actions
 
 The action runs inside a Docker container that you define. 
 
@@ -61,7 +61,7 @@ runs:
 
 Actions that depend on specific system tools (e.g. AWS CLI, Terraform, custom Python environments) or where environment consistency is critical.
 
-### Composite Actions
+### 👩🏼‍🍳 Composite Actions
 
 Rather than running code, a composite action chains together other steps — shell commands, other actions — into a single reusable unit.
 
