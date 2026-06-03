@@ -97,4 +97,7 @@ runs:
 
 DRY-ing up repeated setup sequences across workflows — e.g. a standard "checkout + install + configure AWS" block you use in 10 pipelines.
 
-  
+
+________________
+
+![GitHub Actions Certificate](./public/GH-Actions-Certificate.png)
